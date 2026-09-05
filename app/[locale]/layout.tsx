@@ -1,0 +1,20 @@
+import { NextIntlClientProvider } from "next-intl";
+
+import { Providers } from "@/components/providers";
+import { routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <NextIntlClientProvider>
+            <Providers>{children}</Providers>
+        </NextIntlClientProvider>
+    );
+}
