@@ -1,5 +1,20 @@
 {
     "HomePage": {
         "title": "你好，世界！"
+    },
+    "AuthPage": {
+        "sign_in": "登录",
+        "sign_up": "注册",
+        "name": "昵称",
+        "email": "电子邮箱",
+        "password": "密码",
+        "or": "或",
+        "forgot_password": "忘记密码？",
+        "need_to_create_an_account": "需要创建一个账户？",
+        "already_have_an_account": "已经有一个账户？",
+        "social": {
+            "github": "使用 Github 账号继续",
+            "google": "使用 Google 账号继续"
+        }
     }
 }
