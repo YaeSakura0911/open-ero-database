@@ -30,7 +30,10 @@ export default function LocaleSwitcher() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger
-                className={cn(buttonVariants({ variant: "link" }))}
+                className={cn(
+                    buttonVariants({ variant: "link" }),
+                    "hover:cursor-pointer",
+                )}
             >
                 <LanguagesIcon />
             </DropdownMenuTrigger>
