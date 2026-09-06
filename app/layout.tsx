@@ -7,6 +7,7 @@ import { hasLocale } from "next-intl";
 import { ThemeProvider } from "next-themes";
 
 import { routing } from "@/i18n/routing";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                     disableTransitionOnChange
                 >
                     {children}
+                    <Toaster />
                 </ThemeProvider>
             </body>
         </html>
