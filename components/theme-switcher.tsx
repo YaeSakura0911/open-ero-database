@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { MonitorIcon, MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
 
-export default function ThemeSwithcer() {
+export default function ThemeSwitcher() {
     const { theme, setTheme } = useTheme();
 
     return (
