@@ -1,24 +1,25 @@
 "use server";
 
 import { auth } from "@/lib/auth";
-import { signInFormOptions, SignInSchema } from "@/types/sign-in-schema";
+import { signUpFormOptions, SignUpSchema } from "@/types/sign-up-schema";
 import {
-    ServerValidateError,
     createServerValidate,
+    ServerValidateError,
 } from "@tanstack/react-form-nextjs";
 import { isAPIError } from "better-auth/api";
 
 const serverValidate = createServerValidate({
-    ...signInFormOptions,
-    onServerValidate: SignInSchema,
+    ...signUpFormOptions,
+    onServerValidate: SignUpSchema,
 });
 
-export default async function SignInAction(prev: unknown, formData: FormData) {
+export default async function SignUpAction(prev: unknown, formData: FormData) {
     try {
         const validatedData = await serverValidate(formData);
 
-        const response = await auth.api.signInEmail({
+        const response = await auth.api.signUpEmail({
             body: {
+                name: validatedData.name,
                 email: validatedData.email,
                 password: validatedData.password,
             },
@@ -27,6 +28,7 @@ export default async function SignInAction(prev: unknown, formData: FormData) {
         if (e instanceof ServerValidateError) {
             return e.formState;
         }
+
         if (isAPIError(e)) {
             return (e.message, e.status);
         }

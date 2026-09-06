@@ -6,7 +6,7 @@ export const SignInSchema = z.object({
     password: z.string().min(8, "Must be at least 8 characters"),
 });
 
-export const signInFormOption = formOptions({
+export const signInFormOptions = formOptions({
     defaultValues: {
         email: "",
         password: "",

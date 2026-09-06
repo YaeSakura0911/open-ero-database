@@ -18,13 +18,13 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import SignInAction from "./action";
 import { initialFormState, useForm } from "@tanstack/react-form-nextjs";
-import { signInFormOption } from "@/types/sign-in-schema";
+import { signInFormOptions } from "@/types/sign-in-schema";
 
 export default function SignInPage() {
     const t = useTranslations("AuthPage");
     const [state, action] = useActionState(SignInAction, initialFormState);
     const form = useForm({
-        ...signInFormOption,
+        ...signInFormOptions,
     });
 
     return (
