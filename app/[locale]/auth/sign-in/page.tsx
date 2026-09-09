@@ -21,9 +21,11 @@ import { useForm } from "@tanstack/react-form-nextjs";
 import { useRouter } from "@/i18n/navigation";
 import { authClient } from "@/lib/auth-client";
 
-export const SignInSchema = z.object({
+const SignInSchema = z.object({
     email: z.email("Invalid email address"),
-    password: z.string("Password is null").min(8, "Must be at least 8 characters"),
+    password: z
+        .string("Password is null")
+        .min(8, "Must be at least 8 characters"),
 });
 
 export default function SignInPage() {
@@ -165,6 +167,7 @@ export default function SignInPage() {
                                         <Field>
                                             <Button
                                                 type="submit"
+                                                className="hover: cursor-pointer"
                                                 disabled={!canSubmit}
                                             >
                                                 {isSubmitting
@@ -177,27 +180,32 @@ export default function SignInPage() {
 
                                 <FieldSeparator>{t("or")}</FieldSeparator>
                                 <div className="flex flex-col gap-3">
-                                    <Button variant="outline">
+                                    <Button variant="outline" className="hover: cursor-pointer">
                                         <Image
                                             src="/github.svg"
                                             alt="Github Logo"
                                             width={16}
                                             height={16}
+                                            
                                         />
                                         {t("social.github")}
                                     </Button>
-                                    <Button variant="outline">
+                                    <Button variant="outline" className="hover: cursor-pointer">
                                         <Image
                                             src="/google.svg"
                                             alt="Google Logo"
                                             width={16}
                                             height={16}
+                                            
                                         />
                                         {t("social.google")}
                                     </Button>
                                 </div>
                                 <div className="flex flex-col items-center gap-3">
-                                    <Link href="#" className="hover:underline">
+                                    <Link
+                                        href="/auth/forgot-password"
+                                        className="hover:underline"
+                                    >
                                         {t("forgot_password")}
                                     </Link>
                                     <FieldDescription>

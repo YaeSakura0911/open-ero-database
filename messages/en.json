@@ -5,13 +5,16 @@
     "AuthPage": {
         "sign_in": "Sign In",
         "sign_up": "Sign Up",
+        "forgot": "Forgot Password",
         "name": "Name",
         "email": "Email",
         "password": "Password",
         "or": "OR",
         "forgot_password": "Forgot Password?",
+        "remember_your_password": "Remember your password?",
         "need_to_create_an_account": "Need to create an account?",
         "already_have_an_account": "Already have an account?",
+        "send_reset_link": "Send reset link",
         "sign_in_success": "Sign in successful",
         "sign_up_success": "Sign up successful",
         "social": {

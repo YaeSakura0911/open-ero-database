@@ -204,6 +204,7 @@ export default function SignUpPage() {
                                         <Field>
                                             <Button
                                                 type="submit"
+                                                className="hover: cursor-pointer"
                                                 disabled={!canSubmit}
                                             >
                                                 {isSubmitting
@@ -217,7 +218,7 @@ export default function SignUpPage() {
                                 <FieldSeparator>{t("or")}</FieldSeparator>
 
                                 <div className="flex flex-col gap-3">
-                                    <Button variant="outline">
+                                    <Button variant="outline" className="hover: cursor-pointer">
                                         <Image
                                             src="/github.svg"
                                             alt="Github Logo"
@@ -226,7 +227,7 @@ export default function SignUpPage() {
                                         />
                                         {t("social.github")}
                                     </Button>
-                                    <Button variant="outline">
+                                    <Button variant="outline" className="hover: cursor-pointer">
                                         <Image
                                             src="/google.svg"
                                             alt="Google Logo"
