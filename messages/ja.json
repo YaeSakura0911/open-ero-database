@@ -1,5 +1,22 @@
 {
     "HomePage": {
         "title": "こんにちは、世界！"
+    },
+    "AuthPage": {
+        "sign_in": "ログイン",
+        "sign_up": "登録",
+        "name": "ニックネーム",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "or": "または",
+        "forgot_password": "パスワードをお忘れですか？",
+        "need_to_create_an_account": "アカウントを作成しますか？",
+        "already_have_an_account": "すでにアカウントをお持ちですか？",
+        "sign_in_success": "ログインに成功しました",
+        "sign_up_success": "登録が完了しました",
+        "social": {
+            "github": "Github で続ける",
+            "google": "Google で続ける"
+        }
     }
 }

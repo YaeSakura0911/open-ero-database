@@ -7,7 +7,7 @@ import { hasLocale } from "next-intl";
 import { ThemeProvider } from "next-themes";
 
 import { routing } from "@/i18n/routing";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toast";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",

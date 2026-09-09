@@ -12,6 +12,8 @@
         "forgot_password": "Forgot Password?",
         "need_to_create_an_account": "Need to create an account?",
         "already_have_an_account": "Already have an account?",
+        "sign_in_success": "Sign in successful",
+        "sign_up_success": "Sign up successful",
         "social": {
             "github": "Continue with Github",
             "google": "Continue with Google"

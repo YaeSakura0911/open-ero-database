@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import {
@@ -13,18 +14,48 @@ import {
     FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { toast } from "@/components/ui/toast";
+import { z } from "zod";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import SignInAction from "./action";
-import { initialFormState, useForm } from "@tanstack/react-form-nextjs";
-import { signInFormOptions } from "@/types/sign-in-schema";
+import { useForm } from "@tanstack/react-form-nextjs";
+import { useRouter } from "@/i18n/navigation";
+import { authClient } from "@/lib/auth-client";
+
+export const SignInSchema = z.object({
+    email: z.email("Invalid email address"),
+    password: z.string("Password is null").min(8, "Must be at least 8 characters"),
+});
 
 export default function SignInPage() {
     const t = useTranslations("AuthPage");
-    const [state, action] = useActionState(SignInAction, initialFormState);
+    const router = useRouter();
     const form = useForm({
-        ...signInFormOptions,
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+        validators: {
+            onSubmit: SignInSchema,
+            onChange: SignInSchema,
+            onBlur: SignInSchema,
+        },
+        onSubmit: async ({ value }) => {
+            // Better Auth 登录
+            const { error } = await authClient.signIn.email({
+                email: value.email,
+                password: value.password,
+            });
+
+            // 登录失败
+            if (error) {
+                toast.add({ type: "error", description: error.message });
+                return;
+            }
+
+            // 登录成功
+            toast.add({ type: "success", description: "登录成功" });
+            router.replace("/");
+        },
     });
 
     return (
@@ -37,11 +68,14 @@ export default function SignInPage() {
                 </CardHeader>
                 <CardContent>
                     <form
-                        action={action as never}
-                        onSubmit={() => form.handleSubmit()}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            form.handleSubmit();
+                        }}
                     >
                         <FieldSet>
                             <FieldGroup>
+                                {/* 邮箱输入框 */}
                                 <form.Field name="email">
                                     {(field) => {
                                         const isInvalid =
@@ -81,6 +115,7 @@ export default function SignInPage() {
                                     }}
                                 </form.Field>
 
+                                {/* 密码输入框 */}
                                 <form.Field name="password">
                                     {(field) => {
                                         const isInvalid =

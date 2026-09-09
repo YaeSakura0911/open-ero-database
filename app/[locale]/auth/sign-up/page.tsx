@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import {
@@ -12,19 +14,51 @@ import {
     FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { toast } from "@/components/ui/toast";
+import { z } from "zod";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { useActionState } from "react";
-import SignUpAction from "./action";
-import { initialFormState, useForm } from "@tanstack/react-form-nextjs";
-import { signUpFormOptions } from "@/types/sign-up-schema";
+import { useForm } from "@tanstack/react-form-nextjs";
+import { useRouter } from "@/i18n/navigation";
+import { authClient } from "@/lib/auth-client";
+
+const SignUpSchema = z.object({
+    name: z.string().min(1, "This field is required"),
+    email: z.email(),
+    password: z.string().min(8, "Must be at least 8 characters"),
+});
 
 export default function SignUpPage() {
     const t = useTranslations("AuthPage");
-    const [state, action] = useActionState(SignUpAction, initialFormState);
+    const router = useRouter();
     const form = useForm({
-        ...signUpFormOptions,
+        defaultValues: {
+            name: "",
+            email: "",
+            password: "",
+        },
+        validators: {
+            onSubmit: SignUpSchema,
+            onChange: SignUpSchema,
+            onBlur: SignUpSchema,
+        },
+        onSubmit: async ({ value }) => {
+            // Better Auth 注册
+            const { error } = await authClient.signUp.email({
+                name: value.name,
+                email: value.email,
+                password: value.password,
+            });
+
+            // 注册失败
+            if (error) {
+                toast.add({ type: "error", description: error.message });
+                return;
+            }
+
+            // 注册成功
+            toast.add({ type: "success", description: "登录成功" });
+            router.replace("/");
+        },
     });
     return (
         <div className="flex w-full items-center justify-center">
@@ -36,12 +70,14 @@ export default function SignUpPage() {
                 </CardHeader>
                 <CardContent>
                     <form
-                        action={action as never}
-                        onSubmit={() => form.handleSubmit}
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            form.handleSubmit();
+                        }}
                     >
                         <FieldSet>
                             <FieldGroup>
-                                {/* Name Input Field */}
+                                {/* 姓名输入框 */}
                                 <form.Field name="name">
                                     {(field) => {
                                         const isInvalid =
@@ -80,7 +116,7 @@ export default function SignUpPage() {
                                     }}
                                 </form.Field>
 
-                                {/* Email Input Field */}
+                                {/* 邮箱输入框 */}
                                 <form.Field name="email">
                                     {(field) => {
                                         const isInvalid =
@@ -120,7 +156,7 @@ export default function SignUpPage() {
                                     }}
                                 </form.Field>
 
-                                {/* Password Input Field */}
+                                {/* 密码输入框 */}
                                 <form.Field name="password">
                                     {(field) => {
                                         const isInvalid =
@@ -170,14 +206,16 @@ export default function SignUpPage() {
                                                 type="submit"
                                                 disabled={!canSubmit}
                                             >
-                                                {isSubmitting ? "..." : t("sign_up")}
+                                                {isSubmitting
+                                                    ? "..."
+                                                    : t("sign_up")}
                                             </Button>
                                         </Field>
                                     )}
                                 </form.Subscribe>
 
                                 <FieldSeparator>{t("or")}</FieldSeparator>
-                                
+
                                 <div className="flex flex-col gap-3">
                                     <Button variant="outline">
                                         <Image
