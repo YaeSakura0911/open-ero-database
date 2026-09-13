@@ -29,7 +29,6 @@ export default function ThemeSwitcher() {
                 <DropdownMenuRadioGroup
                     value={theme}
                     onValueChange={(value) => {
-                        console.log(value);
                         setTheme(value);
                     }}
                 >

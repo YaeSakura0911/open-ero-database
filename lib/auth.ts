@@ -1,5 +1,4 @@
 import { betterAuth } from "better-auth";
-import { username } from "better-auth/plugins";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { db } from "@/lib/db";
 import { i18n, locales } from "@better-auth/i18n";
@@ -18,7 +17,6 @@ export const auth = betterAuth({
         enabled: true,
     },
     plugins: [
-        username(),
         i18n({
             translations: {
                 en: locales.en,
@@ -27,7 +25,7 @@ export const auth = betterAuth({
             },
             defaultLocale: "zh",
             detection: ["cookie", "header"],
-            localeCookie: "NEXT_LOCALE"
+            localeCookie: "NEXT_LOCALE",
         }),
         nextCookies(),
     ],

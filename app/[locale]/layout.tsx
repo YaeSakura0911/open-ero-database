@@ -14,7 +14,9 @@ export default function LocaleLayout({
     return (
         <NextIntlClientProvider>
             <Header />
-            {children}
+            <main className="flex flex-1 justify-center">
+                <div className="sm w-full max-w-360 p-4 sm:p-8">{children}</div>
+            </main>
         </NextIntlClientProvider>
     );
 }
